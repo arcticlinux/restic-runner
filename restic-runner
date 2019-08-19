@@ -70,6 +70,7 @@ Usage:
   restic-runner diff --removed
   restic-runner expire
   restic-runner init
+  restic-runner mount
   restic-runner -h | --help
 
   restic-runner passthrough snapshot-ids
@@ -83,6 +84,7 @@ Commands:
   diff                 diff with optional filters
   expire               forget and prune repository
   init                 initialize repository
+  mount                mount repo to given path
   passthrough          pass parameters through to restic
   passthrough help     restic --help
   passthrough ls help  restic ls --help
