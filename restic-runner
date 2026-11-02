@@ -315,13 +315,13 @@ function diff_bytes {
 # TODO: Use a --filter option with multiple arguments
 
 function added {
-    awk '/^+/ {print $0}'
+    awk '/^[+]/ {print $0}'
 }
 function modified {
     awk '/^M/ {print $0}'
 }
 function added_and_modified {
-    awk '! /^M|+/ {$0=""; print $NF}'
+    awk '/^[M+]/ {print $0}'
 }
 function removed {
     awk '/^-/ {print $0}'
