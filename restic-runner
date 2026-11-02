@@ -70,7 +70,7 @@ Usage:
   restic-runner --repo REPO --set SET backup
   restic-runner --repo REPO --added --modified diff [SNAPSHOT1] [SNAPSHOT2]
   restic-runner --repo REPO mount PATH
-  restic-runner --repo REPO -- passthrough snapshots --compact
+  restic-runner --repo REPO passthrough ls --help
 
 Commands:
   backup                    run backup to repository
@@ -80,7 +80,7 @@ Commands:
   forget                    forget snapshots according to keep policy
   init                      initialize repository
   mount PATH                mount repo to given path
-  passthrough ARGS...       pass ARGS through to restic
+  passthrough ARGS...       pass ARGS through to restic (ARGS --help shows restic's help)
   prune                     prune repository
   snapshot-ids              list snapshot IDs, oldest first
   verify-randomly [N]       verify N (default 10) random files from the latest snapshot
@@ -562,8 +562,7 @@ do
             verbose=true
             ;;
         -h|--help)
-            usage
-            exit
+            help=true
             ;;
         -v|--verbose)
             verbose=true
@@ -611,6 +610,17 @@ do
 
     shift
 done
+
+# --help after a passthrough command goes to restic; otherwise show our usage.
+if [[ $help ]]
+then
+    if [[ $command != passthrough && $command != command ]]
+    then
+        usage
+        exit
+    fi
+    rest+=(--help)
+fi
 
 debug "ARGS: $args"
 debug "Command: $command"
