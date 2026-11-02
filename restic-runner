@@ -59,16 +59,44 @@ function die {
 }
 function usage {
     cat <<EOF
-$0 [OPTIONS] ...?
+restic-runner
 
 https://github.com/alphapapa/restic-runner
 
 See restic-runner's readme for more information.
 
-Options
+Usage:
+  restic-runner [options] command [command parameters]
+  restic-runner --repo REPO --set SET backup
+  restic-runner --repo REPO --added --modified diff [SNAPSHOT1] [SNAPSHOT2]
+  restic-runner --repo REPO mount PATH
+  restic-runner --repo REPO -- passthrough snapshots --compact
+
+Commands:
+  backup                    run backup to repository
+  check                     check repository
+  diff [SNAP1] [SNAP2]      diff with optional filters (HEAD = latest, ID^ = one before ID)
+  expire                    forget and prune repository
+  forget                    forget snapshots according to keep policy
+  init                      initialize repository
+  mount PATH                mount repo to given path
+  passthrough ARGS...       pass ARGS through to restic
+  prune                     prune repository
+  snapshot-ids              list snapshot IDs, oldest first
+  verify-randomly [N]       verify N (default 10) random files from the latest snapshot
+
+Options:
+  --repo <repo>  Repo name
+  --set  <set>   Set name
+  --tag  <tag>   Tag name
   -d, --debug    Print debug info
-  -h, --help     I need somebody!
+  -h, --help     Show usage
   -v, --verbose  Verbose output
+
+Diff Filters:
+  --added        enable added filter
+  --modified     enable modified filter
+  --removed      enable removed filter
 EOF
 }
 function log {
@@ -590,7 +618,7 @@ debug "Rest: ${rest[@]}"
 
 # ** Verify required arguments
 
-[[ $command ]] || die "No command specified"
+[[ $command ]] || die "No command specified.  $0 -h | --help for usage"
 
 # * Include repo and set files
 
