@@ -21,7 +21,7 @@
 # * Setup
 
 # Set the locale so "date" always produces parseable output.
-export LANG=en_EN.utf8
+export LANG=en_US.UTF-8
 
 # * Defaults
 
