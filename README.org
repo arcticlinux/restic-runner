@@ -19,6 +19,13 @@
 1.  Put the =restic-runner= script in your =PATH=.
 2.  Make the directory =~/.config/backup/restic= (or a path of your choosing after changing the =config_dir= default variable in the script).
 
+*** With curl
+
+#+BEGIN_SRC sh
+  $ curl -o restic-runner https://raw.githubusercontent.com/arcticlinux/restic-runner/master/restic-runner
+  $ chmod +x restic-runner
+#+END_SRC
+
 *** MacOS
 
 On MacOS, you will probably need to install GNU =getopt=, as well as GNU =date= (symlinking it to =date= as needed).  You may want to put them earlier in your =PATH= when running =restic-runner=.  For example, using Homebrew, you could do this:
