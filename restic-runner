@@ -236,11 +236,11 @@ function snapshot-ids {
     # Disable du
     unset du
 
+    # Match ID rows rather than counting header and footer lines,
+    # which differ between restic versions.
     restic snapshots \
            $(tag) \
-        | head -n -2 \
-        | tail -n +3 \
-        | awk '/^[^ ]/ { print $1 }'
+        | awk '/^[0-9a-f]+ / && length($1) == 8 { print $1 }'
 }
 
 function human_bytes {
